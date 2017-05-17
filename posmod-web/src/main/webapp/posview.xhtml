@@ -1,0 +1,487 @@
+
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrought"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<style type="text/css">
+.old {
+	background-color: #228B22 !important;
+	background-image: none !important;
+	color: #000000 !important;
+}
+
+.oldGreen {
+	background-color: #006400 !important;
+	background-image: none !important;
+	color: #000000 !important;
+}
+</style>
+
+
+	<title>Users Interfaces</title>
+
+
+
+</h:head>
+<h:body>
+
+
+	<div class="col-md-8">
+
+		<p:commandButton class="btn btn-primary btn-block"
+			style=" font-weight: bold;" value="Logout" action="loginboot">
+
+			<!--                       <f:ajax listener="#{csbean.doAddUser()}" -->
+			<!-- 														render="tbl" /> -->
+
+		</p:commandButton>
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+
+			<br></br>
+			<br></br>
+
+			<!-- 			<label>Rechercher par : </label> -->
+			<!-- 			<input type="text" class="form-control" name="" -->
+			<!-- 				placeholder="Nom , Prénom ,Client ..." value=""></input> -->
+
+			<br></br>
+			<br></br>
+
+			<p:dataTable editable="true" editMode="cell" resizableColumns="true"
+				rows="10" border="1"
+				rowStyleClass="#{positionnement.statut eq 'En Mission' ? 'old' : null}"
+				value="#{posBean.positionnements}" var="positionnement"
+				resizeMode="expand" paginator="true"
+				filteredValue="#{posBean.positionnementsFiltred}" id="tbv" widgetVar="tblwidget">
+
+				<p:ajax event="cellEdit" listener="#{posBean.onCellEdit}"
+					update=":form:msgs" />
+				<!-- 				<p:ajax event="rowEdit" listener="#{posBean.onRowEdit}" update=":form:msgs" /> -->
+				<!--                 <p:ajax event="rowEditCancel" listener="#{posBean.onRowCancel}" update=":form:msgs" /> -->
+
+				<p:column headerText="Nom/Prénom" width="55"
+					filterBy="#{positionnement.nom}">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.nom}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.nom}" style="width:96%"
+								label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!-- 					<h:outputText value="#{positionnement.nom}"></h:outputText> -->
+
+				</p:column>
+
+				<p:column headerText="Part/Cli" width="40"
+					filterBy="#{positionnement.partenaireClient}">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.partenaireClient}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.partenaireClient}"
+								style="width:96%" label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!-- 					<h:outputText value="#{positionnement.partenaireClient}"></h:outputText> -->
+				</p:column>
+
+
+				<p:column headerText="Info P/C" width="75"
+					filterBy="#{positionnement.information}">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.information}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.information}"
+								style="width:96%" label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!-- 					<h:outputText value="#{positionnement.information }"></h:outputText> -->
+				</p:column>
+
+
+				<p:column headerText="InfContact" width="75"
+					filterBy="#{positionnement.informationPerConcerne}">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.informationPerConcerne}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.informationPerConcerne}"
+								style="width:96%" label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!-- 					<h:outputText value="#{positionnement.informationPerConcerne}"></h:outputText> -->
+				</p:column>
+
+				<p:column headerText="Contenue" width="75"
+					filterBy="#{positionnement.contenueTech}">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.contenueTech}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.contenueTech}"
+								style="width:96%" label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!-- 					<h:outputText value="#{positionnement.contenueTech}"></h:outputText> -->
+				</p:column>
+
+				<p:column headerText="Zone" width="75"
+					filterBy="#{positionnement.zoneG}">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.zoneG}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.zoneG}" style="width:96%"
+								label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!-- 				<h:outputText value="#{positionnement.zoneG}"></h:outputText> -->
+				</p:column>
+
+				<p:column headerText="TJM" width="30">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.tjm} €" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.tjm} €" style="width:96%"
+								label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!-- 					<h:outputText value="#{positionnement.tjm}"></h:outputText> -->
+				</p:column>
+
+
+
+
+
+
+	
+				<p:column  headerText="Statut" width="75"
+					filterBy="#{positionnement.statut}" footerText="exact" filterMatchMode="exact">
+ 	<f:ajax event="change" render="@form">
+					<p:cellEditor >
+						<f:facet name="output">
+							<h:outputText  value="#{positionnement.statut}" />
+						</f:facet>
+						<f:facet name="input">
+						
+							<h:selectOneMenu  value="#{positionnement.statut}"
+								style="width:100%">
+								<f:selectItems value="#{posBean.lesStatus}" var="man"
+									itemLabel="#{man}" itemValue="#{man}" />
+							</h:selectOneMenu>
+
+							<!-- 	<p:inputText value="#{positionnement.statut}" style="width:96%" label="Year" /> -->
+						</f:facet>
+					</p:cellEditor>
+</f:ajax>
+				</p:column>
+
+
+
+
+
+
+
+
+
+
+
+				<p:column headerText="Commentaire" width="150"
+					filterBy="#{positionnement.commentaire}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.commentaire}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.commentaire}"
+								style="width:96%" label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!-- 					<h:outputText value="#{positionnement.commentaire}"></h:outputText> -->
+				</p:column>
+
+				<p:column headerText="Date" width="75"
+					filterBy="#{positionnement.dateInsertion}">
+					<h:outputText value="#{positionnement.dateInsertion}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Commerciale" width="75"
+					filterBy="#{positionnement.commercialeConcerne}">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{positionnement.commercialeConcerne}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{positionnement.commercialeConcerne}"
+								style="width:96%" label="Year" />
+						</f:facet>
+					</p:cellEditor>
+					<!--    					<h:outputText value="#{positionnement.commercialeConcerne}"></h:outputText> -->
+				</p:column>
+
+
+
+
+
+
+
+
+				<!-- 				<p:column width="19" exportable="false"> -->
+
+				<!-- 					<p:commandButton class="btn btn-danger btn-simple btn-xs" -->
+				<!-- 						value="Modifier"> -->
+				<!-- 						<f:ajax listener="#{posBean.doUpdate(positionnement)}" -->
+				<!-- 							render="tbv" /> -->
+				<!-- 					</p:commandButton> -->
+				<!-- 				</p:column> -->
+
+				<p:column width="50" exportable="false">
+
+					<p:commandButton exportable="false"
+						class="btn btn-danger btn-simple btn-xs" value="Supprimer">
+						<f:ajax
+							listener="#{posBean.doDeletePositionnement(positionnement)}"
+							render="tbv" />
+							 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+
+
+
+
+			</p:dataTable>
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+			<!-- 	###############################################EXPORTER############################################ -->
+			<br />
+			<br />
+
+			<b>Exportation PDF/CSV/XML/EXCEL: </b>
+			<h:commandLink>
+				<p:graphicImage library="img" title="excel" name="excel.png" />
+				<p:dataExporter type="xls" target="tbv"
+					fileName="FichePositionnement" pageOnly="true" />
+			</h:commandLink>
+
+			<h:commandLink>
+				<p:graphicImage library="img" title="pdf" name="pdf.png" />
+				<p:dataExporter type="pdf" target="tbv"
+					fileName="FichePositionnement" pageOnly="true" />
+			</h:commandLink>
+
+			<h:commandLink>
+				<p:graphicImage library="img" title="csv" name="csv.png" />
+				<p:dataExporter type="csv" target="tbv"
+					fileName="FichePositionnement" pageOnly="true" />
+			</h:commandLink>
+
+			<h:commandLink>
+				<p:graphicImage library="img" title="xml" name="xml.png" />
+				<p:dataExporter type="xml" target="tbv"
+					fileName="FichePositionnement" pageOnly="true" />
+			</h:commandLink>
+			<br></br>
+
+			<!-- 	INPUT######################## -->
+
+
+
+
+			<!-- 			<p:messages id="messages" showDetail="true" autoUpdate="true" -->
+			<!-- 				closable="true" /> -->
+
+			<!-- 				<br/> -->
+			<!-- 			<p:commandButton value="Fatal" actionListener="#{posBean.fatal}" /> -->
+			<br />
+			<br />
+
+
+
+			
+
+				<div style="width: 50%; float: left">
+					<p:fieldset legend="Ajouter Positionnement" toggleable="true"
+						toggleSpeed="500" style="width:30%">
+
+						<h:panelGrid id="panelgrid1ID"  columns="2" cellpadding="5">
+							<p:outputLabel for="nom" value="Nom,Prénom " />
+							<p:inputText  id="nom" name="generalId"  value="#{posBean.nom}" />
+
+							<p:outputLabel for="partenaireCID" value="Partenaire/Client" />
+							<p:inputText id="partenaireCID" name="generalId"
+								value="#{posBean.partenaireClient}" />
+
+							<p:outputLabel value="Info P/C" />
+							<p:inputText id="infoPartenaireId" name="generalId"
+								value="#{posBean.information}" />
+
+							<p:outputLabel value="Info contact " />
+							<p:inputText id="infoContactID" name="generalId"
+								value="#{posBean.informationPerConcerne}" />
+
+							<p:outputLabel value="Contenue" />
+							<p:inputText id="contenueID" name="generalId"
+								value="#{posBean.contenueTech}" />
+
+							<p:outputLabel value="Zone " />
+							<p:inputText id="zoneId" name="generalId"
+								value="#{posBean.zoneG}" />
+
+							<p:outputLabel value="TJM" />
+							<p:inputText id="tjmID" name="generalId" value="#{posBean.tjm}" />
+
+							<p:outputLabel value="Statut" />
+
+							<p:inputText id="statutID" name="generalId"
+								value="#{posBean.statut}" />
+
+							<p:outputLabel value="Commentaire" />
+							<p:inputTextarea rows="6" cols="33" id="comentaireID"
+								name="generalId" value="#{posBean.commentaire}" />
+
+							<p:outputLabel value="Date" />
+							<!-- 				<p:inputText id="dateID" name="generalId"  value="#{posBean.datfeed}" /> -->
+							<p:calendar id="popup8" pattern="MM/dd/yyyy HH:mm"
+								value="#{posBean.datfeed}" />
+
+							<p:outputLabel value="Commerciale" />
+							<p:inputText id="commercialeID" name="generalId"
+								value="#{posBean.commercialeConcerne}" />
+
+<!-- 															<p:poll interval="2" listener="#{posBean.init()}" update="tbv" /> -->
+
+							<p:commandButton class="btn btn-primary btn-block"
+								style=" font-weight: bold;" value="Ajouter">
+								<f:ajax event="click" execute="panelgrid1ID" listener="#{posBean.doAddPositionnement()}"   render="tbv" />
+							</p:commandButton>
+
+						</h:panelGrid>
+					</p:fieldset>
+
+				</div>
+				<div style="width: 50%; float: right">
+
+					############	SCHEDULE ############
+					 <p:growl id="messages" showDetail="true" />
+ 
+    <h:panelGrid columnClasses="value">
+        <h3 style="margin-top: 0">Calendrier de Positionnement</h3>
+        <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
+ 
+            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
+            <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
+ 
+        </p:schedule>
+ 
+        
+    </h:panelGrid>
+ 
+    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="eventDetails" columns="2">
+            <p:outputLabel for="title" value="Titles:" />
+            <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
+ 
+            <p:outputLabel for="from" value="From:" />
+            <p:calendar id="from" value="#{scheduleView.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="to" value="To:" />
+            <p:calendar id="to" value="#{scheduleView.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="allDay" value="All Day:" />
+            <h:selectBooleanCheckbox id="allDay" value="#{scheduleView.event.allDay}" />
+ 
+            <p:commandButton type="reset" value="Reset" />
+            <p:commandButton id="addButton" value="Save" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+        </h:panelGrid>
+    </p:dialog>    
+					
+					
+					 ##########	END SCHEDULE ##########
+
+				</div>
+			
+
+													 MODIFICATION 						
+
+
+
+
+
+
+
+
+
+		</h:form>
+
+	</div>
+
+
+	<!-- 	#########################################################Second DataTable############################################################# -->
+
+
+
+
+</h:body>
+
+<!--   Core JS Files   -->
+<script type="text/javascript">
+    PrimeFaces.locales['fr'] = {
+        closeText: 'kapat',
+        prevText: 'geri',
+        nextText: 'ileri',
+        currentText: 'bugün',
+        monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran',
+            'Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],
+        monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz',
+            'Tem','Ağu','Eyl','Eki','Kas','Ara'],
+        dayNames: ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],
+        dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+        dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+        weekHeader: 'Hf',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        month: 'Ay',
+        week: 'Hafta',
+        day: 'Gün',
+        allDayText : 'Tüm Gün'
+    };
+</script>
+<style type="text/css">
+    .value {
+        width: 1000px;
+    }
+</style>
+
+
+
+
+</html>
